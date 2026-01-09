@@ -6,15 +6,19 @@ class SegTree {
   }
 
   private Node buildNode(int[] values, int beginIndex, int endIndex) {
+    Node node = new Node(beginIndex, endIndex);
+
     if (beginIndex == endIndex) {
-      return new Node(beginIndex, endIndex, values[beginIndex], null, null);
+      node.minValue = values[beginIndex];
+    } else {
+      int middleIndex = (beginIndex + endIndex) / 2;
+      node.left = buildNode(values, beginIndex, middleIndex);
+      node.right = buildNode(values, middleIndex + 1, endIndex);
+
+      node.pull();
     }
 
-    int middleIndex = (beginIndex + endIndex) / 2;
-    Node left = buildNode(values, beginIndex, middleIndex);
-    Node right = buildNode(values, middleIndex + 1, endIndex);
-
-    return new Node(beginIndex, endIndex, Math.min(left.minValue, right.minValue), left, right);
+    return node;
   }
 
   void update(int index, int value) {
@@ -29,7 +33,7 @@ class SegTree {
         update(index, value, node.left);
         update(index, value, node.right);
 
-        node.minValue = Math.min(node.left.minValue, node.right.minValue);
+        node.pull();
       }
     }
   }
@@ -57,12 +61,13 @@ class SegTree {
     Node left;
     Node right;
 
-    Node(int beginIndex, int endIndex, int minValue, Node left, Node right) {
+    Node(int beginIndex, int endIndex) {
       this.beginIndex = beginIndex;
       this.endIndex = endIndex;
-      this.minValue = minValue;
-      this.left = left;
-      this.right = right;
+    }
+
+    void pull() {
+      minValue = Math.min(left.minValue, right.minValue);
     }
   }
 }

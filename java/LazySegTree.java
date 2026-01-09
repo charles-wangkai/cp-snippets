@@ -6,15 +6,19 @@ class LazySegTree {
   }
 
   private Node buildNode(int[] values, int beginIndex, int endIndex) {
+    Node node = new Node(beginIndex, endIndex, 0);
+
     if (beginIndex == endIndex) {
-      return new Node(beginIndex, endIndex, 0, values[beginIndex], null, null);
+      node.minValue = values[beginIndex];
+    } else {
+      int middleIndex = (beginIndex + endIndex) / 2;
+      node.left = buildNode(values, beginIndex, middleIndex);
+      node.right = buildNode(values, middleIndex + 1, endIndex);
+
+      node.pull();
     }
 
-    int middleIndex = (beginIndex + endIndex) / 2;
-    Node left = buildNode(values, beginIndex, middleIndex);
-    Node right = buildNode(values, middleIndex + 1, endIndex);
-
-    return new Node(beginIndex, endIndex, 0, Math.min(left.minValue, right.minValue), left, right);
+    return node;
   }
 
   void update(int beginIndex, int endIndex, int delta) {
@@ -64,13 +68,10 @@ class LazySegTree {
     Node left;
     Node right;
 
-    Node(int beginIndex, int endIndex, int delta, int minValue, Node left, Node right) {
+    Node(int beginIndex, int endIndex, int delta) {
       this.beginIndex = beginIndex;
       this.endIndex = endIndex;
       this.delta = delta;
-      this.minValue = minValue;
-      this.left = left;
-      this.right = right;
     }
 
     int getComputedMinValue() {
