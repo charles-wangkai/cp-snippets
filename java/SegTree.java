@@ -34,7 +34,7 @@ class SegTree {
     }
   }
 
-  public int query(int beginIndex, int endIndex) {
+  int query(int beginIndex, int endIndex) {
     return query(beginIndex, endIndex, root);
   }
 
