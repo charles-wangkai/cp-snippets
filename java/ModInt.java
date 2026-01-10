@@ -27,7 +27,7 @@ class ModInt {
     return multiplyMod(x, modInv(y));
   }
 
-  int powMod(int base, int exponent) {
+  int powMod(int base, long exponent) {
     if (exponent == 0) {
       return 1;
     }
