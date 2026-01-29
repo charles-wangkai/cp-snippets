@@ -8,7 +8,7 @@ class ModInt {
   }
 
   int mod(long x) {
-    return (int) (x % modulus);
+    return Math.floorMod(x, modulus);
   }
 
   int modInv(int x) {
@@ -16,11 +16,11 @@ class ModInt {
   }
 
   int addMod(int x, int y) {
-    return Math.floorMod(x + y, modulus);
+    return mod(x + y);
   }
 
   int multiplyMod(int x, int y) {
-    return Math.floorMod((long) x * y, modulus);
+    return mod((long) x * y);
   }
 
   int divideMod(int x, int y) {
