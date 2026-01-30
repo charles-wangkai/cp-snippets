@@ -62,7 +62,7 @@ class Scc {
     int component = 0;
     for (int node : sorted) {
       if (components[node] == -1) {
-        search2(components, node, component);
+        search2(components, component, node);
         ++component;
       }
     }
@@ -70,12 +70,12 @@ class Scc {
     return components;
   }
 
-  private void search2(int[] components, int node, int component) {
+  private void search2(int[] components, int component, int node) {
     components[node] = component;
 
     for (int adj : reversedAdjLists[node]) {
       if (components[adj] == -1) {
-        search2(components, adj, component);
+        search2(components, component, adj);
       }
     }
   }
