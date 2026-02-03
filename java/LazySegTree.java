@@ -79,12 +79,10 @@ class LazySegTree {
     }
 
     void pushDown() {
-      if (delta != 0) {
-        left.apply(delta);
-        right.apply(delta);
+      left.apply(delta);
+      right.apply(delta);
 
-        delta = 0;
-      }
+      delta = 0;
     }
 
     void apply(int d) {
