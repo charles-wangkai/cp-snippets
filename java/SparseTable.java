@@ -2,9 +2,9 @@ import java.util.function.BinaryOperator;
 
 class SparseTable {
   int[][] st;
-  BinaryOperator<Integer> binaryOperator;
+  BinaryOperator<Integer> operator;
 
-  SparseTable(int[] values, BinaryOperator<Integer> binaryOperator) {
+  SparseTable(int[] values, BinaryOperator<Integer> operator) {
     st = new int[values.length][computeExponent(values.length) + 1];
     for (int i = 0; i < st.length; ++i) {
       st[i][0] = values[i];
@@ -12,18 +12,17 @@ class SparseTable {
     for (int exponent = 1; exponent < st[0].length; ++exponent) {
       for (int i = 0; i + (1 << exponent) <= st.length; ++i) {
         st[i][exponent] =
-            binaryOperator.apply(st[i][exponent - 1], st[i + (1 << (exponent - 1))][exponent - 1]);
+            operator.apply(st[i][exponent - 1], st[i + (1 << (exponent - 1))][exponent - 1]);
       }
     }
 
-    this.binaryOperator = binaryOperator;
+    this.operator = operator;
   }
 
   int query(int beginIndex, int endIndex) {
     int exponent = computeExponent(endIndex - beginIndex + 1);
 
-    return binaryOperator.apply(
-        st[beginIndex][exponent], st[endIndex - (1 << exponent) + 1][exponent]);
+    return operator.apply(st[beginIndex][exponent], st[endIndex - (1 << exponent) + 1][exponent]);
   }
 
   private int computeExponent(int x) {
