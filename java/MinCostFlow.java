@@ -22,7 +22,7 @@ class MinCostFlow {
     edgeLists[v].add(edges.size() - 1);
   }
 
-  int computeMinCostFlow(int s, int t, int f) {
+  int computeMinCost(int s, int t, int f) {
     int size = edgeLists.length;
 
     int result = 0;
