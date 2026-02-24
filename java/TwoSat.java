@@ -16,7 +16,7 @@ class TwoSat {
     int[] components = scc.buildComponents();
 
     boolean[] assignment = new boolean[n];
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < assignment.length; ++i) {
       if (components[2 * i] == components[2 * i + 1]) {
         return null;
       }
