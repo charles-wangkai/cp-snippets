@@ -5,16 +5,18 @@ class Tree {
   int n;
   int[] u;
   int[] v;
+  int root;
   List<Integer>[] edgeLists;
   int[] depths;
   int[][] ancestors;
 
   @SuppressWarnings("unchecked")
-  Tree(int[] u, int[] v) {
+  Tree(int[] u, int[] v, int root) {
     n = u.length + 1;
 
     this.u = u;
     this.v = v;
+    this.root = root;
 
     edgeLists = new List[n];
     for (int i = 0; i < edgeLists.length; ++i) {
@@ -27,7 +29,7 @@ class Tree {
 
     depths = new int[n];
     ancestors = new int[n][Integer.toBinaryString(n).length()];
-    init(0, -1, 0);
+    init(0, -1, root);
   }
 
   private void init(int depth, int parent, int node) {
