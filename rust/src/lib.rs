@@ -6,4 +6,5 @@ pub mod mod_int;
 pub mod scc;
 pub mod seg_tree;
 pub mod sparse_table;
+pub mod tree;
 pub mod two_sat;
