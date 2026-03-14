@@ -2,7 +2,7 @@ class FenwickTree {
   int[] a;
 
   FenwickTree(int size) {
-    a = new int[Integer.highestOneBit(size) * 2 + 1];
+    a = new int[size + 1];
   }
 
   void add(int pos, int delta) {

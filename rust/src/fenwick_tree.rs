@@ -6,7 +6,7 @@ struct FenwickTree {
 impl FenwickTree {
     fn new(size: usize) -> Self {
         Self {
-            a: vec![0; (1 << (size.ilog2() + 1)) + 1],
+            a: vec![0; size + 1],
         }
     }
 
