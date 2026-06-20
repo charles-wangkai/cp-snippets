@@ -1,11 +1,14 @@
-struct SparseTable {
+struct SparseTable<F> {
     st: Vec<Vec<i32>>,
-    operator: fn(i32, i32) -> i32,
+    operator: F,
 }
 
 #[allow(dead_code)]
-impl SparseTable {
-    fn new(values: &[i32], operator: fn(i32, i32) -> i32) -> Self {
+impl<F> SparseTable<F>
+where
+    F: Fn(i32, i32) -> i32,
+{
+    fn new(values: &[i32], operator: F) -> Self {
         let size = (values.len().ilog2() as usize) + 1;
         let mut st = vec![vec![0; size]; values.len()];
         for i in 0..values.len() {
